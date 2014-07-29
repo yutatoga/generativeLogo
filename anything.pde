@@ -12,7 +12,9 @@
 
 int drawSpeed = 32; // number of drawn shapes per draw() call
 int drawMode = 3; // move through the drawing modes by clicking the mouse
-color BACKGROUND_COLOR = color(255);
+int capitalTextSize = 48;
+int smallTextSize = 5;
+color BACKGROUND_COLOR = #F7F6F0;
 color PGRAPHICS_COLOR = color(0);
 
 PGraphics pg;
@@ -20,31 +22,36 @@ PGraphics pg;
 PFont font;
 
 void setup() {
-  size(640, 120);
+  size(320, 50);
   background(BACKGROUND_COLOR); // start of with a white background
   //colorMode(HSB, 360, 100, 100); // change to Hue-Saturation-Brightness color mode
   colorMode(RGB, 255);
   rectMode(CENTER);
 
   // create and draw to PPraphics (see Getting Started > UsingPGraphics example)
+  font = loadFont("http://yutatoga.com/wpd/data/Helvetica-53.vlw"); 
+  // font = loadFont("Helvetica-53.vlw"); 
   pg = createGraphics(width, height, JAVA2D);
   pg.beginDraw();
-  pg.textSize(100);
+  pg.textSize(capitalTextSize);
+
   pg.textAlign(LEFT, CENTER);
+  pg.textFont(font, capitalTextSize);
   pg.fill(PGRAPHICS_COLOR);
   pg.text("YUTA TOGA", 0, pg.height/2); 
   pg.endDraw();
-  
-  font = loadFont("Helvetica-13.vlw"); 
 }
 
 void draw() {
+//  image(pg, 0, 0 );
   // This for loop ensures the code is repeated 'drawSpeed' times
   for (int i=0; i<drawSpeed; i++) {
     // pick a random coordinate
     int x = (int) random(width);
     int y = (int) random(height);
     // check if the coordinate is inside the text (in the offscreen PGraphics)
+    print(pg.get(x, y));
+    print('\n');
     boolean insideText = (pg.get(x, y) == PGRAPHICS_COLOR);
     // if it is indeed, then draw a shape in the main screen
     if (insideText) {
@@ -55,7 +62,7 @@ void draw() {
       switch (drawMode) {
       case 0:
         float er = random(2, 13);
-        color ec = color(random(100, 150), random(100, 150), random(100, 150), random(30,60));
+        color ec = color(random(100, 150), random(100, 150), random(100, 150), random(30, 60));
         //stroke(0);
         noStroke();
         fill(ec);
@@ -84,31 +91,31 @@ void draw() {
       case 3: 
         //Y
         fill(0);
-        textSize(100);
-        if(x > textWidth("") && x < textWidth("Y")){
-          textSize(13);
+        textSize(capitalTextSize);
+        if (x > textWidth("") && x < textWidth("Y")) {
+          textFont(font, smallTextSize);
           text("y", 0, 0);
-        }else if(x > textWidth("Y") && x < textWidth("YU")){
-          textSize(13);
-          text("u", 0, 0);  
-        }else if(x > textWidth("YU") && x < textWidth("YUT")){
-          textSize(13);
-          text("t", 0, 0);  
-        }else if(x > textWidth("YUT") && x < textWidth("YUTA")){
-          textSize(13);
-          text("a", 0, 0);  
-        }else if(x > textWidth("YUTA ") && x < textWidth("YUTA T")){
-          textSize(13);
-          text("t", 0, 0);  
-        }else if(x > textWidth("YUTA T") && x < textWidth("YUTA TO")){
-          textSize(13);
-          text("0", 0, 0);  
-        }else if(x > textWidth("YUTA TO") && x < textWidth("YUTA TOG")){
-          textFont(font, 26);
-          text("g", 0, 0);  
-        }else if(x > textWidth("YUTA TOG") && x < textWidth("YUTA TOGA")){
-          textSize(13);
-          text("a", 0, 0);  
+        } else if (x > textWidth("Y") && x < textWidth("YU")) {
+          textFont(font, smallTextSize);
+          text("u", 0, 0);
+        } else if (x > textWidth("YU") && x < textWidth("YUT")) {
+          textFont(font, smallTextSize);
+          text("t", 0, 0);
+        } else if (x > textWidth("YUT") && x < textWidth("YUTA")) {
+          textFont(font, smallTextSize);
+          text("a", 0, 0);
+        } else if (x > textWidth("YUTA ") && x < textWidth("YUTA T")) {
+          textFont(font, smallTextSize);
+          text("t", 0, 0);
+        } else if (x > textWidth("YUTA T") && x < textWidth("YUTA TO")) {
+          textFont(font, smallTextSize);
+          text("0", 0, 0);
+        } else if (x > textWidth("YUTA TO") && x < textWidth("YUTA TOG")) {
+          textFont(font, smallTextSize);
+          text("g", 0, 0);
+        } else if (x > textWidth("YUTA TOG") && x < textWidth("YUTA TOGA")) {
+          textFont(font, smallTextSize);
+          text("a", 0, 0);
         }
         break;
       }
